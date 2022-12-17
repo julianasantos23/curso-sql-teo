@@ -41,4 +41,25 @@ and datediff(dtEstimativaEntrega, dtAprovado) > 30
 
 -- COMMAND ----------
 
+select 
+        T3.descUF,
+        AVG(T1.vlFrete) as avgFrete
+
+from silver_olist.item_pedido as T1
+
+left join silver_olist.pedido as T2
+on T1.idPedido = T2.idPedido
+
+left join silver_olist.cliente as T3
+on T2.idCliente = T3.idCliente
+
+group by T3.descUF
+
+having AVG(T1.vlFrete) > 40
+
+order by avgFrete
+
+
+-- COMMAND ----------
+
 
